@@ -138,6 +138,7 @@ void rasterScan(vector<vector<cell>> &cells)
     return;
 }
 
+// print the representant of each cell to the console
 void printCells(vector<vector<cell>> cells)
 {
     for (int i = 0; i < cells.size(); i++)
@@ -179,7 +180,7 @@ int labelLargestCluster(vector<vector<cell>> cells)
     return -1;
 }
 
-// assigns the value 2 to any cell which is opart of the largest cluster, 1 to any other occupied cell
+// assigns the value 2 to any cell which is part of the largest cluster, 1 to any other occupied cell
 // and 0 to unoccupied cells.
 void largestCluster(vector<vector<cell>> &cells)
 {
@@ -207,6 +208,7 @@ void largestCluster(vector<vector<cell>> &cells)
     }
 }
 
+// writes the grid of cells to a file given a name
 void writeClustersToFile(vector<vector<cell>> cells, string name)
 {
     ofstream file;
@@ -222,6 +224,7 @@ void writeClustersToFile(vector<vector<cell>> cells, string name)
     file.close();
 }
 
+// writes the grid to a file
 void writeGridToFile(vector<vector<bool>> grid, string name)
 {
     ofstream file;
@@ -239,19 +242,18 @@ void writeGridToFile(vector<vector<bool>> grid, string name)
 
 int main()
 {
-    int gridSize = 500;
-    double occupationProbability = 0.75;
-
+    // initialize grid
+    int gridSize = 50;
+    double occupationProbability = 0.65;
     vector<vector<cell>> cells(gridSize, vector<cell>(gridSize));
     vector<vector<bool>> grid(gridSize, vector<bool>(gridSize));
     randomize(occupationProbability, grid);
     initCells(cells, grid);
 
-    // printGrid(grid);
+    //printGrid(grid);
     cout << " " << endl;
     rasterScan(cells);
-    // printCells(cells);
-
+    //printCells(cells);
     largestCluster(cells);
     writeClustersToFile(cells, "largestCluster " + std::to_string(occupationProbability) + " " + std::to_string(gridSize) + " ");
 
